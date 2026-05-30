@@ -81,10 +81,15 @@ ${agentList || 'None available.'}
 Available MCP Servers: ${extList || 'None.'}
 
 If you can answer directly, just write your response in Markdown.
-If you need to assign tasks to agents, you MUST plan the sequence and write XML tags like this:
+
+If you need to delegate, you MUST plan a sequential chain of steps and write XML tags like this:
 <delegate agent="Agent Name">Specific instructions for this agent to complete their part of the task.</delegate>
 
-IMPORTANT: If you delegate, ONLY output the <delegate> tags. Do not write anything else. Plan sequentially in logical order.`;
+CRITICAL RULES FOR DELEGATION:
+1. If the user's request contains multiple questions, steps, or parts (e.g. "Do X and then Y", or "Write post 1 and then post 2", or "Analyze code and write tests"), you MUST split them into separate, discrete <delegate> tags in logical order.
+2. You can spawn the SAME agent multiple times in sequence with different instructions (e.g. first spawn 'Chef' for Carbonara, then spawn 'Chef' for Linguine, then spawn 'Marketing' to post both).
+3. Do NOT merge distinct logical tasks into a single delegate step! Keep each step highly cohesive and focused on one specific output.
+4. Output ONLY the <delegate> tags. No preamble, no explanation, no other text outside the tags.`;
   };
 
   const buildAgentPrompt = (agentName, instructions, previousOutputs) => {

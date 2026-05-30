@@ -83,20 +83,9 @@ function createWindow() {
     },
   });
 
-  // Attempt to check if Metro Dev Server (expo start) is running on 8081
-  const devServerUrl = 'http://localhost:8081';
-  
-  const checkReq = http.get(devServerUrl, (res) => {
-    // Dev server is running! Load it directly for Live Reloading & developer logs
-    console.log('Expo Dev server detected! Loading dev environment...');
-    win.loadURL(devServerUrl);
-  });
-
-  checkReq.on('error', () => {
-    // Dev server not active, load compiled production build via local HTTP server
-    console.log('Dev server not running. Loading compiled app from local static server...');
-    win.loadURL(`http://localhost:${PORT}`);
-  });
+  // Always load from our guaranteed, robust, pre-compiled local static HTTP server
+  console.log(`Loading application from local static server on http://localhost:${PORT}...`);
+  win.loadURL(`http://localhost:${PORT}`);
 
   win.webContents.setWindowOpenHandler(({ url }) => {
     require('electron').shell.openExternal(url);
