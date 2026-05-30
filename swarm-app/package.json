@@ -20,7 +20,13 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "electron:start": "electron electron-main.js",
+    "electron:pack": "electron-packager . SwarmAI --platform=darwin --out=build --overwrite"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "@electron/packager": "^20.0.0",
+    "electron": "^42.3.0"
+  }
 }
